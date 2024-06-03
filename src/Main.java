@@ -1,4 +1,7 @@
+import java.util.Collection;
+
 public class Main {
+
 
     public static void main(String[] args) {
 
@@ -6,9 +9,10 @@ public class Main {
         TaskManager taskManager = new TaskManager();
 
         //Получение списка задач.
-        taskManager.printTasks();
+        printTasks(taskManager.getTasks());
+        //System.out.println("Список задач пуст.");
         //Создание задачи.
-        System.out.println("Создание задачи.");
+        System.out.println("Создание задачи 1.");
         Task readTheBook = new Task("Прочитать книгу.","Книга по Java.");
         Task readTheBookCreation = taskManager.creationTask(readTheBook);
         System.out.println("Задаче 1 присвоен уникальный ID - " + ((readTheBookCreation.getId() != null) ? readTheBookCreation.getId() : "" ));
@@ -27,7 +31,8 @@ public class Main {
 
 
         //Получение списка эпиков.
-        taskManager.printEpics();
+        printEpics(taskManager.getEpics());
+        //System.out.println("Список эпиков пуст.");
         //Создание эпика.
         System.out.println("Создание эпика.");
         Epic relaxByTheSea = new Epic("Отдохнуть на море.", "Каспийское море.");
@@ -35,7 +40,8 @@ public class Main {
         System.out.println("Эпику 1 присвоен уникальный ID - " + ((relaxByTheSeaCreation.getId() != null) ? relaxByTheSeaCreation.getId() : "" ));
         System.out.println("Эпик 1 создан - " + taskManager.getEpicById(relaxByTheSeaCreation.getId()));
         //Получение списка всех подзадач определённого эпика.
-        //taskManager.getSubtasksByEpicId();
+        Collection<Subtask> subtasksByEpic = taskManager.getSubtasksByEpicId(relaxByTheSeaCreation.getId());
+        System.out.println("Список подзадач пуст.");
         //Создание подзадачи 1.
         System.out.println("Создание подзадачи 1.");
         Subtask saveUpMoney = new Subtask(relaxByTheSea.getId(), "Накопить денег.","Сто тысяч рублей.");
@@ -59,14 +65,51 @@ public class Main {
         Subtask buyATicketToUpdated = taskManager.updateSubtask(buyATicketToUpdate);
         System.out.println("Подзадача 2 обновлена - " + buyATicketToUpdated);
         //Обновление эпика.
-        Epic relaxByTheSeaToUpdate = new Epic(relaxByTheSeaCreation.getId(), "Отдых на море.", "Дагестан.", taskManager.getStatusEpic(relaxByTheSeaCreation.getId()));
-        Epic relaxByTheSeaToUpdated = taskManager.updateEpic(relaxByTheSeaToUpdate);
+        //Epic relaxByTheSeaToUpdate = new Epic(relaxByTheSeaCreation.getId(), "Отдых на море.", "Дагестан.", taskManager.getStatusEpic(relaxByTheSeaCreation.getId()));
+        Epic relaxByTheSeaToUpdated = taskManager.updateEpic(relaxByTheSeaCreation.getId(), "Отдых на море.", "Дагестан.");
         System.out.println("Эпик 1 обновлен - " + relaxByTheSeaToUpdated);
         //Удаление подзадачи 1.
+        System.out.println("Удаление подзадачи 1.");
         boolean saveUpMoneyToDelete = taskManager.removeSubtaskById(saveUpMoneyToUpdate.getId());
         System.out.println("Подзадача 1 удалена.");
+        //Удаление подзадачи 2.
+        System.out.println("Удаление подзадачи 2.");
+        boolean buyATicketToDelete = taskManager.removeSubtaskById(buyATicketToUpdate.getId());
+        System.out.println("Подзадача 2 удалена.");
         //Удаление эпика.
-        boolean relaxByTheSeaToDelete = taskManager.removeEpicById(relaxByTheSeaToUpdate.getId());
+        boolean relaxByTheSeaToDelete = taskManager.removeEpicById(relaxByTheSeaToUpdated.getId());
         System.out.println("Эпик 1 удален.");
+    }
+
+
+
+    public static void printTasks(Collection<Task> allTasks) {
+        if(allTasks.isEmpty()) {
+            System.out.println("Список задач пуст.");
+            return;
+        }
+        for(Task task : allTasks) {
+            System.out.println(task);
+        }
+    }
+
+    public static void printSubtasks(Collection<Subtask> allSubtasks) {
+        if(allSubtasks.isEmpty()) {
+            System.out.println("Список подзадач пуст.");
+            return;
+        }
+        for(Subtask subtask : allSubtasks) {
+            System.out.println(subtask);
+        }
+    }
+
+    public static void printEpics(Collection<Epic> allEpics) {
+        if(allEpics.isEmpty()) {
+            System.out.println("Список эпиков пуст.");
+            return;
+        }
+        for(Epic epic : allEpics) {
+            System.out.println(epic);
+        }
     }
 }

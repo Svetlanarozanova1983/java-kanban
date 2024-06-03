@@ -1,7 +1,8 @@
 import java.util.Objects;
 
 public class Subtask extends Task {
-    public Integer epicId;
+
+    private Integer epicId;
 
     public Subtask(Integer epicId, String name, String description) {
         super(name, description);
@@ -13,12 +14,12 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
-    public int getEpicID() {
-        return epicId;
-    }
-
     public Subtask(Integer id, String name, String description,  Status  status) {
         super(id, name, description, status);
+    }
+
+    public int getEpicID() {
+        return epicId;
     }
 
     @Override
