@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class TaskManager {
+    public class TaskManager {
 
-private int nextId=1;
+    private int nextId=1;
 
     private final HashMap<Integer, Task> tasks = new HashMap<>();
     private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
@@ -32,7 +32,7 @@ private int nextId=1;
         Epic currentEpic = getEpicById(id);
         ArrayList<Subtask> result = new ArrayList<>();
         for(Integer subtaskId : currentEpic.getSubtaskIds()){
-            result.add(getSubtaskById(subtaskId));
+            result.add(subtasks.get(subtaskId));
         }
         return result;
     }
@@ -45,11 +45,13 @@ private int nextId=1;
     }
     //Удаление всех подзадач
     public void clearSubtasks() {
-        for(Subtask subtask : subtasks.values()) {
-            Integer epicId = subtask.getEpicID();
-            Epic epic = getEpicById(epicId);
-            epic.removeSubtaskId(subtask.getId());
-            reCalcAndSaveEpicStatus(epicId);
+        for(Epic epic : epics.values()) {
+            epic.clearSubtaskIds();
+            epic.setStatus(Status.NEW);
+            //Integer epicId = subtask.getEpicID();
+            //Epic epic = getEpicById(epicId);
+            //epic.removeSubtaskId(subtask.getId());
+            //reCalcAndSaveEpicStatus(epicId);
         }
             subtasks.clear();
     }
@@ -127,20 +129,19 @@ private int nextId=1;
             return null;
         }
         Integer epicId = input.getEpicID();
-        reCalcAndSaveEpicStatus(epicId);
+        //reCalcAndSaveEpicStatus(epicId);
         subtasks.put(input.getId(), input);
+        reCalcAndSaveEpicStatus(epicId);
         return input;
     }
     //Обновление эпика. Новая версия объекта с верным идентификатором передаётся в виде параметра
-    public Epic updateEpic(Integer inputId, String inputName, String inputDescription) {
-        Epic existedEpic = getEpicById(inputId);
+    public Epic updateEpic(Epic input) {
+        Epic existedEpic = epics.get(input.getId());
         if(existedEpic == null) {
             return null;
         }
-        reCalcAndSaveEpicStatus(inputId);
-        existedEpic.setName(inputName);
-        existedEpic.setDescription(inputDescription);
-        epics.put(inputId, existedEpic);
+        existedEpic.setName(input.getName());
+        existedEpic.setDescription(input.getDescription());
         return existedEpic;
     }
 
@@ -212,7 +213,6 @@ private int nextId=1;
 
     private void reCalcAndSaveEpicStatus(Integer epicId) {
         Epic epic = getEpicById(epicId);
-
         Status statusEpic = getStatusEpic(epicId);
         epic.setStatus(statusEpic);
     }

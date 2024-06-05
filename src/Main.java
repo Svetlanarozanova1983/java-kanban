@@ -10,7 +10,6 @@ public class Main {
 
         //Получение списка задач.
         printTasks(taskManager.getTasks());
-        //System.out.println("Список задач пуст.");
         //Создание задачи.
         System.out.println("Создание задачи 1.");
         Task readTheBook = new Task("Прочитать книгу.","Книга по Java.");
@@ -32,7 +31,6 @@ public class Main {
 
         //Получение списка эпиков.
         printEpics(taskManager.getEpics());
-        //System.out.println("Список эпиков пуст.");
         //Создание эпика.
         System.out.println("Создание эпика.");
         Epic relaxByTheSea = new Epic("Отдохнуть на море.", "Каспийское море.");
@@ -65,8 +63,8 @@ public class Main {
         Subtask buyATicketToUpdated = taskManager.updateSubtask(buyATicketToUpdate);
         System.out.println("Подзадача 2 обновлена - " + buyATicketToUpdated);
         //Обновление эпика.
-        //Epic relaxByTheSeaToUpdate = new Epic(relaxByTheSeaCreation.getId(), "Отдых на море.", "Дагестан.", taskManager.getStatusEpic(relaxByTheSeaCreation.getId()));
-        Epic relaxByTheSeaToUpdated = taskManager.updateEpic(relaxByTheSeaCreation.getId(), "Отдых на море.", "Дагестан.");
+        Epic relaxByTheSeaToUpdate = new Epic(relaxByTheSeaCreation.getId(), "Отдых на море.", "Дагестан.", taskManager.getStatusEpic(relaxByTheSeaCreation.getId()));
+        Epic relaxByTheSeaToUpdated = taskManager.updateEpic(relaxByTheSeaToUpdate);
         System.out.println("Эпик 1 обновлен - " + relaxByTheSeaToUpdated);
         //Удаление подзадачи 1.
         System.out.println("Удаление подзадачи 1.");
@@ -93,6 +91,8 @@ public class Main {
         }
     }
 
+
+
     public static void printSubtasks(Collection<Subtask> allSubtasks) {
         if(allSubtasks.isEmpty()) {
             System.out.println("Список подзадач пуст.");
@@ -102,6 +102,8 @@ public class Main {
             System.out.println(subtask);
         }
     }
+
+
 
     public static void printEpics(Collection<Epic> allEpics) {
         if(allEpics.isEmpty()) {
