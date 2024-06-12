@@ -28,9 +28,9 @@ public class Main {
 
         Epic relaxByTheSea = new Epic("Отдохнуть на море.", "Каспийское море.");
         inMemoryTaskManager.creationEpic(relaxByTheSea);
-        Subtask saveUpMoney = new Subtask("Накопить денег.", "Сто тысяч рублей.");
-        Subtask buyATicket = new Subtask("Купить путевку.", "Баку, Азербайджан.");
-        Subtask takeOutInsurance = new Subtask("Оформить страховку", "РЕСО-Гарантия");
+        Subtask saveUpMoney = new Subtask(relaxByTheSea.getId(), "Накопить денег.", "Сто тысяч рублей.");
+        Subtask buyATicket = new Subtask(relaxByTheSea.getId(),"Купить путевку.", "Баку, Азербайджан.");
+        Subtask takeOutInsurance = new Subtask(relaxByTheSea.getId(),"Оформить страховку", "РЕСО-Гарантия");
         inMemoryTaskManager.creationSubtask(saveUpMoney);
         inMemoryTaskManager.creationSubtask(buyATicket);
         inMemoryTaskManager.creationSubtask(takeOutInsurance);
