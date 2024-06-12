@@ -3,11 +3,71 @@ import java.util.Collection;
 public class Main {
 
 
+    private static final InMemoryTaskManager inMemoryTaskManager = Managers.getDefault();
+
     public static void main(String[] args) {
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
+        addTasks();
+        printAllTasks(taskManager);
+    }
+
+    private static void addTasks() {
+        Task readTheBook = new Task("Прочитать книгу.", "Книга по Java.");
+        inMemoryTaskManager.creationTask(readTheBook);
+        Task readTheBookToUpdated = new Task(readTheBook.getId(), "Книга прочитана на 30%.",
+                "Дальше нужна практика.", Status.IN_PROGRESS);
+        inMemoryTaskManager.updateTask(readTheBookToUpdated);
 
 
-        TaskManager taskManager = new TaskManager();
+        Task goToTheShop = new Task("Сходить в магазин.", "Купить продукты.");
+        inMemoryTaskManager.creationTask(goToTheShop);
+        Task goToTheShopToUpdated = new Task(goToTheShop.getId(), "Поход в магазин состоялся.",
+                "Продукты куплены.", Status.DONE);
+        inMemoryTaskManager.updateTask(goToTheShopToUpdated);
 
+
+        Epic relaxByTheSea = new Epic("Отдохнуть на море.", "Каспийское море.");
+        inMemoryTaskManager.creationEpic(relaxByTheSea);
+        Subtask saveUpMoney = new Subtask("Накопить денег.", "Сто тысяч рублей.");
+        Subtask buyATicket = new Subtask("Купить путевку.", "Баку, Азербайджан.");
+        Subtask takeOutInsurance = new Subtask("Оформить страховку", "РЕСО-Гарантия");
+        inMemoryTaskManager.creationSubtask(saveUpMoney);
+        inMemoryTaskManager.creationSubtask(buyATicket);
+        inMemoryTaskManager.creationSubtask(takeOutInsurance);
+        saveUpMoney.setStatus(Status.DONE);
+        inMemoryTaskManager.updateSubtask(saveUpMoney);
+        buyATicket.setStatus(Status.IN_PROGRESS);
+        inMemoryTaskManager.updateSubtask(buyATicket);
+        takeOutInsurance.setStatus(Status.IN_PROGRESS);
+        inMemoryTaskManager.updateSubtask(takeOutInsurance);
+    }
+
+    private static void printAllTasks(TaskManager manager) {
+        System.out.println("Задачи:");
+        for (Task task : manager.getTasks()) {
+            System.out.println(task);
+        }
+        System.out.println("Эпики:");
+        for (Task epic : manager.getEpics()) {
+            System.out.println(epic);
+
+            for (Task task : manager.getSubtasksByEpicId(epic.getId())) {
+                System.out.println("--> " + task);
+            }
+        }
+        System.out.println("Подзадачи:");
+        for (Task subtask : manager.getSubtasks()) {
+            System.out.println(subtask);
+        }
+
+        System.out.println("История:");
+        for (Task task : manager.getHistory()) {
+            System.out.println(task);
+        }
+    }
+}
+
+/*
         //Получение списка задач.
         printTasks(taskManager.getTasks());
         //Создание задачи.
@@ -26,7 +86,6 @@ public class Main {
         boolean readTheBookToDelete = taskManager.removeTaskById(readTheBookToUpdate.getId());
         System.out.println("Задача 1 удалена.");
         System.out.println("\n");
-
 
 
         //Получение списка эпиков.
@@ -80,7 +139,6 @@ public class Main {
     }
 
 
-
     public static void printTasks(Collection<Task> allTasks) {
         if(allTasks.isEmpty()) {
             System.out.println("Список задач пуст.");
@@ -90,7 +148,6 @@ public class Main {
             System.out.println(task);
         }
     }
-
 
 
     public static void printSubtasks(Collection<Subtask> allSubtasks) {
@@ -104,7 +161,6 @@ public class Main {
     }
 
 
-
     public static void printEpics(Collection<Epic> allEpics) {
         if(allEpics.isEmpty()) {
             System.out.println("Список эпиков пуст.");
@@ -115,3 +171,4 @@ public class Main {
         }
     }
 }
+*/
