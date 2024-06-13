@@ -9,8 +9,8 @@ public class SubtaskTest {
     //экземпляры класса Subtask равны друг другу, если равен их id
     public void SubtaskInstancesAreEqualToEachOtherIfTheirIdIsEqual() {
 
-        Subtask subtask1 = new Subtask("Накопить денег.", "Сто тысяч рублей.");
-        Subtask subtask2 = new Subtask("Накопить денег.", "Сто тысяч рублей.");
+        Subtask subtask1 = new Subtask(1,"Накопить денег.", "Сто тысяч рублей.");
+        Subtask subtask2 = new Subtask(1,"Накопить денег.", "Сто тысяч рублей.");
 
         assertEquals(subtask1, subtask2);
     }
@@ -19,8 +19,8 @@ public class SubtaskTest {
     //наследники класса Task равны друг другу, если равен их id
     public void TaskHeirsAreEqualToEachOtherIfTheirIdIsEqual() {
 
-        Subtask subtask1 = new Subtask("Оформить страховку", "РЕСО-Гарантия");
-        Subtask subtask2 = new Subtask("Оформить страховку", "РЕСО-Гарантия");
+        Subtask subtask1 = new Subtask(1, "Оформить страховку", "РЕСО-Гарантия");
+        Subtask subtask2 = new Subtask(1, "Оформить страховку", "РЕСО-Гарантия");
 
         assertEquals(subtask1, subtask2);
     }

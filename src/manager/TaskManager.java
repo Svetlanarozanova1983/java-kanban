@@ -39,5 +39,4 @@ public interface TaskManager {
 
     List<Task> getHistory();
 
-    void joinSubtaskToEpic(Integer subtaskId, Epic epic);
 }

@@ -1,14 +1,11 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
 
 
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
-    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    private final HashMap<Integer, Epic> epics = new HashMap<>();
+    private final Map<Integer, Task> tasks = new HashMap<>();
+    private final Map<Integer, Subtask> subtasks = new HashMap<>();
+    private final Map<Integer, Epic> epics = new HashMap<>();
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     private int nextId=1;
@@ -60,10 +57,6 @@ public class InMemoryTaskManager implements TaskManager {
         for(Epic epic : epics.values()) {
             epic.clearSubtaskIds();
             epic.setStatus(Status.NEW);
-            //Integer epicId = subtask.getEpicID();
-            //Epic epic = getEpicById(epicId);
-            //epic.removeSubtaskId(subtask.getId());
-            //reCalcAndSaveEpicStatus(epicId);
         }
             subtasks.clear();
     }
@@ -206,18 +199,6 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 
-    @Override
-    public void joinSubtaskToEpic(Integer subtaskId, Epic epic) {
-        Subtask st = subtasks.get(subtaskId);
-        // проверить что он не привязан к эпику
-        st.getEpicID();
-        // если привязан отвязать и пересчитать статус того эпика
-        // привязать
-        // пересчитать статус этого эпика
-
-        // добавить саптаск ид эпику
-    }
-
 
     //Получение статуса эпика
     public Status getStatusEpic(Integer id) {
@@ -252,7 +233,6 @@ public class InMemoryTaskManager implements TaskManager {
         Status statusEpic = getStatusEpic(epicId);
         epic.setStatus(statusEpic);
     }
-
 }
 
 

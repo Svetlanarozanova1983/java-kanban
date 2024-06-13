@@ -6,22 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class InMemoryTaskManagerTest {
 
 
-//    @Test
-//    //объект Epic нельзя добавить в самого себя в виде подзадачи
-//    //не понятно как это реализовать
-//    public void EpicCannotBeAddedToItselfAsASubtask() {
-//        Epic epic1 = new Epic("Отдохнуть на море летом.", "Каспийское море.");
-//        TaskManager tm = new InMemoryTaskManager();
-//        Epic epic1Created = tm.creationEpic(epic1);
-//        tm.joinSubtaskToEpic(epic1Created.getId(), epic1Created);
-//        //Epic epic2 = new Epic("Отдохнуть на море зимой.", "Аравийское море.");
-//    }
-
-//    @Test
-//    //не понятно как это реализовать
-//    //объект Subtask нельзя сделать своим же эпиком
-
-
     @Test
     //InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id
     public void InMemoryTaskManagerAddTasksAndCanFindThemById() {
@@ -55,12 +39,6 @@ public class InMemoryTaskManagerTest {
         Epic epicGetted = tm.getEpicById(epicCreated.getId());
         assertEquals(epicCreated, epicGetted);
     }
-
-//    @Test
-//    //не понятно как это реализовать
-//    // задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера
-//    public void TasksWithAGivenIdAndAGeneratedIdDoNotConflictWithinTheManager() {
-//    }
 
 
     @Test

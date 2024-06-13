@@ -11,7 +11,7 @@ public class ManagersTest {
     @Test
     //утилитарный класс всегда возвращает проинициализированные и готовые к работе экземпляры менеджеров
     public void UtilityClassAlwaysReturnsInitializedInstancesOfManagers() {
-        InMemoryTaskManager tm = Managers.getDefault();
+        TaskManager tm = Managers.getDefault();
         assertInstanceOf(TaskManager.class, tm);
     }
 }
