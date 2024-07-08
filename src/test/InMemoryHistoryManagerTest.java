@@ -3,6 +3,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InMemoryHistoryManagerTest {
@@ -28,6 +29,17 @@ public class InMemoryHistoryManagerTest {
         tm.updateTask(taskCreated);
         List<Task> taskHistoryList = tm.getHistory();
 
-        assertNotEquals(taskHistoryList.getLast(), taskHistoryList.getFirst());
+        assertEquals(taskHistoryList.getLast(), taskHistoryList.getFirst());
+    }
+
+    @Test
+    //Удаляемые подзадачи не должны хранить внутри себя старые id
+    public void TasksRemoveToTheHistoryManagerRetainOfTheTask() {
+        Task task = new Task("Сходить в магазин.", "Купить продукты.");
+        TaskManager tm = new InMemoryTaskManager();
+        Task taskCreated = tm.creationTask(task);
+        tm.removeTaskById(taskCreated.getId());
+        List<Task> taskHistoryList = tm.getHistory();
+        assertTrue(taskHistoryList.isEmpty());
     }
 }

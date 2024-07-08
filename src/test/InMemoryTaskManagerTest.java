@@ -67,4 +67,16 @@ public class InMemoryTaskManagerTest {
         assertEquals(epic.getDescription(), epicGetted.getDescription());
         assertEquals(epic.getStatus(), epicGetted.getStatus());
     }
+
+    @Test
+    //Внутри эпиков не должно оставаться неактуальных id подзадач
+    public void ThereShouldBeNoIrrelevantSubtaskIDsInsideTheEpics() {
+        Epic epic = new Epic("Отдохнуть на море.", "Каспийское море.");
+        TaskManager tm = new InMemoryTaskManager();
+        Epic epicCreated = tm.creationEpic(epic);
+        Subtask subtask = new Subtask(epicCreated.getId(),"Оформить страховку", "РЕСО-Гарантия");
+        Subtask subtaskCreated = tm.creationSubtask(subtask);
+        tm.removeSubtaskById(subtaskCreated.getId());
+        assertTrue(epicCreated.getSubtaskIds().isEmpty());
+    }
 }

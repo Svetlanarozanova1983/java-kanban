@@ -168,6 +168,7 @@ public class InMemoryTaskManager implements TaskManager {
     //Удаление задачи по идентификатору
     @Override
     public boolean removeTaskById(Integer id) {
+        historyManager.remove(id);
         return tasks.remove(id) != null;
     }
     //Удаление подзадачи по идентификатору
@@ -181,6 +182,7 @@ public class InMemoryTaskManager implements TaskManager {
         epic.removeSubtaskId(id);
         boolean result = subtasks.remove(id) != null;
         reCalcAndSaveEpicStatus(epicId);
+        historyManager.remove(id);
         return result;
     }
     //Удаление эпика по идентификатору
@@ -190,6 +192,7 @@ public class InMemoryTaskManager implements TaskManager {
         for(Subtask subtask : subtaskCollection) {
             subtasks.remove(subtask.getId());
         }
+        historyManager.remove(id);
         return epics.remove(id) != null;
     }
 
