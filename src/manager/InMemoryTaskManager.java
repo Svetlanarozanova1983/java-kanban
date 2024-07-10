@@ -39,7 +39,7 @@ public class InMemoryTaskManager implements TaskManager {
     public Collection<Subtask> getSubtasksByEpicId(Integer id) {
         Epic currentEpic = getEpicById(id);
         ArrayList<Subtask> result = new ArrayList<>();
-        for(Integer subtaskId : currentEpic.getSubtaskIds()){
+        for(Integer subtaskId : currentEpic.getSubtaskIds()) {
             result.add(subtasks.get(subtaskId));
         }
         return result;
@@ -213,7 +213,7 @@ public class InMemoryTaskManager implements TaskManager {
                 break;
             }
         }
-        if(result == Status.NEW && allSubtasksByEpicIdIsDone(id)){
+        if(result == Status.NEW && allSubtasksByEpicIdIsDone(id)) {
             result = Status.DONE;
         }
         return result;
