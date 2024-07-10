@@ -1,13 +1,11 @@
 import org.junit.Test;
-
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SubtaskTest {
 
     @Test
     //экземпляры класса Subtask равны друг другу, если равен их id
-    public void SubtaskInstancesAreEqualToEachOtherIfTheirIdIsEqual() {
+    public void subtaskInstancesAreEqualToEachOtherIfTheirIdIsEqual() {
 
         Subtask subtask1 = new Subtask(1,"Накопить денег.", "Сто тысяч рублей.");
         Subtask subtask2 = new Subtask(1,"Накопить денег.", "Сто тысяч рублей.");
@@ -17,7 +15,7 @@ public class SubtaskTest {
 
     @Test
     //наследники класса Task равны друг другу, если равен их id
-    public void TaskHeirsAreEqualToEachOtherIfTheirIdIsEqual() {
+    public void taskHeirsAreEqualToEachOtherIfTheirIdIsEqual() {
 
         Subtask subtask1 = new Subtask(1, "Оформить страховку", "РЕСО-Гарантия");
         Subtask subtask2 = new Subtask(1, "Оформить страховку", "РЕСО-Гарантия");

@@ -1,6 +1,6 @@
 import org.junit.Test;
-import java.util.List;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InMemoryTaskManagerTest {
@@ -8,7 +8,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     //InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id
-    public void InMemoryTaskManagerAddTasksAndCanFindThemById() {
+    public void inMemoryTaskManagerAddTasksAndCanFindThemById() {
         Task task = new Task("Сходить в магазин.", "Купить продукты.");
         TaskManager tm = new InMemoryTaskManager();
         Task taskCreated = tm.creationTask(task);
@@ -19,7 +19,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     //InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id
-    public void InMemoryTaskManagerAddSubtasksAndCanFindThemById() {
+    public void inMemoryTaskManagerAddSubtasksAndCanFindThemById() {
         Epic epic = new Epic("Отдохнуть на море.", "Каспийское море.");
         TaskManager tm = new InMemoryTaskManager();
         Epic epicCreated = tm.creationEpic(epic);
@@ -32,7 +32,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     //InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id
-    public void InMemoryTaskManagerAddEpicsAndCanFindThemById() {
+    public void inMemoryTaskManagerAddEpicsAndCanFindThemById() {
         Epic epic = new Epic("Отдохнуть на море.", "Каспийское море.");
         TaskManager tm = new InMemoryTaskManager();
         Epic epicCreated = tm.creationEpic(epic);
@@ -43,7 +43,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     //проверяется неизменность задачи (по всем полям) при добавлении задачи в менеджер
-    public void ImmutabilityOfTheTaskInAllFieldsWhenAddingTheTaskToTheManager() {
+    public void immutabilityOfTheTaskInAllFieldsWhenAddingTheTaskToTheManager() {
         Task task = new Task("Сходить в магазин.", "Купить продукты.");
         TaskManager tm = new InMemoryTaskManager();
         Task taskCreated = tm.creationTask(task);
@@ -57,7 +57,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     //проверяется неизменность епика (по всем полям) при добавлении епика в менеджер
-    public void ImmutabilityOfTheEpicInAllFieldsWhenAddingTheEpicToTheManager() {
+    public void immutabilityOfTheEpicInAllFieldsWhenAddingTheEpicToTheManager() {
         Epic epic = new Epic("Отдохнуть на море.", "Каспийское море.");
         TaskManager tm = new InMemoryTaskManager();
         Epic epicCreated = tm.creationEpic(epic);
@@ -70,7 +70,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     //Внутри эпиков не должно оставаться неактуальных id подзадач
-    public void ThereShouldBeNoIrrelevantSubtaskIDsInsideTheEpics() {
+    public void thereShouldBeNoIrrelevantSubtaskIDsInsideTheEpics() {
         Epic epic = new Epic("Отдохнуть на море.", "Каспийское море.");
         TaskManager tm = new InMemoryTaskManager();
         Epic epicCreated = tm.creationEpic(epic);
