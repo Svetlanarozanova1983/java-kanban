@@ -2,19 +2,19 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private Node first;
-    private Node last;
-    private Map<Integer, Node> nodeMap = new HashMap<>();
+    private Node<Task> first;
+    private Node<Task> last;
+    private Map<Integer, Node<Task>> nodeMap = new HashMap<>();
 
 
     @Override
     public void add(Task task) {
-        if(task == null) {
+        if (task == null) {
             return;
         }
         //поиск элементов в хещмап
         var taskId = task.getId();
-        Node result = nodeMap.get(taskId);
+        Node<Task> result = nodeMap.get(taskId);
         //если нашли то удалить
         if (result != null) {
             removeNode(result);
@@ -28,7 +28,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        Node node = nodeMap.remove(id);
+        Node<Task> node = nodeMap.remove(id);
         if (node == null) {
             return;
         }
@@ -41,9 +41,9 @@ public class InMemoryHistoryManager implements HistoryManager {
         return result;
     }
 
-    private Node linkLast(Task task) {
+    private Node<Task> linkLast(Task task) {
 
-        var newElement = new Node(last, task, null);
+        var newElement = new Node<Task>(last, task, null);
         if (last != null) {
             last.next = newElement;
         } else {
@@ -62,9 +62,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             return result;
         }
         result.add(first.value);
-        Node currentElement = first;
-        while (currentElement.next != null)
-        {
+        Node<Task> currentElement = first;
+        while (currentElement.next != null) {
             currentElement = currentElement.next;
             result.add(currentElement.value);
         }
@@ -73,7 +72,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         return result;
     }
 
-    private void removeNode(Node input) {
+    private void removeNode(Node<Task> input) {
         if (input.prev == null) {
             first = input.next;
             if (input.next != null) {
@@ -87,27 +86,12 @@ public class InMemoryHistoryManager implements HistoryManager {
                 input.prev.next = null;
             }
         }
-        if (input.prev != null && input.next != null){
+        if (input.prev != null && input.next != null) {
             input.prev.next = input.next;
             input.next.prev = input.prev;
         }
-
     }
 
-    private class Node {
-        Node prev;
-        Node next;
-        Task value;
-
-        public Node(Node prev, Task value, Node next) {
-            this.value = value;
-            this.next = next;
-            this.prev = prev;
-
-        }
-    }
-
-/*
     private class Node<T> {
         Node<T> prev;
         Node<T> next;
@@ -117,8 +101,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             this.value = value;
             this.next = next;
             this.prev = prev;
-
         }
     }
-*/
 }
