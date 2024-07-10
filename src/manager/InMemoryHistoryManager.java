@@ -42,7 +42,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     private Node<Task> linkLast(Task task) {
-
         var newElement = new Node<Task>(last, task, null);
         if (last != null) {
             last.next = newElement;
@@ -68,7 +67,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             result.add(currentElement.value);
         }
         result.add(currentElement.value);
-
         return result;
     }
 
@@ -79,7 +77,6 @@ public class InMemoryHistoryManager implements HistoryManager {
                 input.next.prev = null;
             }
         }
-
         if (input.next == null) {
             last = input.prev;
             if (input.prev != null) {
