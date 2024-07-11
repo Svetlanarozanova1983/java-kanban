@@ -4,7 +4,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     private Node<Task> first;
     private Node<Task> last;
-    private Map<Integer, Node<Task>> nodeMap = new HashMap<>();
+    private final Map<Integer, Node<Task>> nodeMap = new HashMap<>();
 
 
     @Override
@@ -89,7 +89,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    private class Node<T> {
+    private static class Node<T> {
         Node<T> prev;
         Node<T> next;
         T value;
