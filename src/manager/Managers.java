@@ -6,7 +6,7 @@ public class Managers {
     }
 
     public static TaskManager getDefault() {
-        return FileBackedTaskManager.loadFromFile(new File("/Users/svetlana/work/IdeaProjects/java-kanban/file_data.db"));
+        return FileBackedTaskManager.loadFromFile(new File("file_data.db"));
     }
 
     public static HistoryManager getDefaultHistory() {
