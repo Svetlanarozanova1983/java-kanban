@@ -68,13 +68,9 @@ public class Task {
         return Objects.hash(id, name, description, status);
     }
 
+    // id,type,name,status,description,epic
     @Override
     public String toString() {
-        return "Task{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", status=" + status +
-                '}';
+        return id+",task,"+ name + "," + status +"," + description + ",";
     }
 }

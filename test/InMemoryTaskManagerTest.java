@@ -4,12 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InMemoryTaskManagerTest {
 
+    public TaskManager tm;
+
+    public InMemoryTaskManagerTest() {
+        this.tm = new InMemoryTaskManager();
+    }
 
     @Test
     //InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id
     public void inMemoryTaskManagerAddTasksAndCanFindThemById() {
         Task task = new Task("Сходить в магазин.", "Купить продукты.");
-        TaskManager tm = new InMemoryTaskManager();
+
         Task taskCreated = tm.creationTask(task);
         Task taskGetted = tm.getTaskById(taskCreated.getId());
         assertEquals(taskCreated, taskGetted);
@@ -20,7 +25,7 @@ public class InMemoryTaskManagerTest {
     //InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id
     public void inMemoryTaskManagerAddSubtasksAndCanFindThemById() {
         Epic epic = new Epic("Отдохнуть на море.", "Каспийское море.");
-        TaskManager tm = new InMemoryTaskManager();
+
         Epic epicCreated = tm.creationEpic(epic);
         Subtask subtask = new Subtask(epicCreated.getId(),"Оформить страховку", "РЕСО-Гарантия");
         Subtask subtaskCreated = tm.creationSubtask(subtask);
@@ -33,7 +38,7 @@ public class InMemoryTaskManagerTest {
     //InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id
     public void inMemoryTaskManagerAddEpicsAndCanFindThemById() {
         Epic epic = new Epic("Отдохнуть на море.", "Каспийское море.");
-        TaskManager tm = new InMemoryTaskManager();
+
         Epic epicCreated = tm.creationEpic(epic);
         Epic epicGetted = tm.getEpicById(epicCreated.getId());
         assertEquals(epicCreated, epicGetted);
@@ -44,7 +49,7 @@ public class InMemoryTaskManagerTest {
     //проверяется неизменность задачи (по всем полям) при добавлении задачи в менеджер
     public void immutabilityOfTheTaskInAllFieldsWhenAddingTheTaskToTheManager() {
         Task task = new Task("Сходить в магазин.", "Купить продукты.");
-        TaskManager tm = new InMemoryTaskManager();
+
         Task taskCreated = tm.creationTask(task);
         Task taskGetted = tm.getTaskById(taskCreated.getId());
 

@@ -25,17 +25,17 @@ public class Epic extends Task {
         return subtaskIds;
     }
 
+
+
     public void clearSubtaskIds() {
         subtaskIds.clear();
     }
 
     @Override
     public String toString() {
-        return "Epic{" +
-                "name= " + getName() + '\'' +
-                ", description = " + getDescription() + '\'' +
-                ", id=" + getId() +
-                ", status = " + getStatus() +
-                '}';
+        return getId()+",epic,"+ getName() + "," + getStatus() +"," + getDescription() + ",";
+
+
+
     }
 }
