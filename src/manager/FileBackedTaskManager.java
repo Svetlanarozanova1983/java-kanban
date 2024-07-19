@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
@@ -17,7 +16,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private final Path path;
 
     public FileBackedTaskManager(Path path) throws IOException {
-        if(!Files.exists(path)){
+        if(!Files.exists(path)) {
             Files.createFile(path);
         }
 
@@ -72,7 +71,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     // метод сохраняет текущее состояние менеджера в указанный файл
     public void save() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.getPath().toString() ))) {
-            bw.write(CSVFormat.getHeader());
+            bw.write(CSVFormat.getHeader() );
             bw.newLine();
             for (Task t : getTasks()) {
                 bw.write(t.toString());
