@@ -71,6 +71,6 @@ public class Task {
     // id,type,name,status,description,epic
     @Override
     public String toString() {
-        return id+",task,"+ name + "," + status +"," + description + ",";
+        return id + ",task," + name + "," + status + "," + description + ",";
     }
 }
