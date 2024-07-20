@@ -53,7 +53,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             String descr = fields[4];
             String type = fields[1];
 
-            if(maxId < id) {
+            if (maxId < id) {
                 maxId = id;
             }
 
