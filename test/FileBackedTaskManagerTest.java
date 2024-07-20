@@ -1,10 +1,9 @@
 import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FileBackedTaskManagerTest extends InMemoryTaskManagerTest {
+public class FileBackedTaskManagerTest extends TaskManagerTest {
 
     private final File saveTmpFile;
 
@@ -32,7 +31,6 @@ public class FileBackedTaskManagerTest extends InMemoryTaskManagerTest {
         Subtask subtask = new Subtask (epicCreated.getId(), "Подзадача 1", "Описание 1");
         Subtask subtaskCreated = sut.creationSubtask(subtask);
         saveTmpFile.deleteOnExit();
-
     }
 
     @Test

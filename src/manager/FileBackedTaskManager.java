@@ -9,10 +9,6 @@ import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    public Path getPath() {
-        return path;
-    }
-
     private final Path path;
 
     public FileBackedTaskManager(Path path) throws IOException {
@@ -25,6 +21,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public FileBackedTaskManager(String path) throws IOException {
         this(Path.of(path));
+    }
+
+    public Path getPath() {
+        return path;
     }
 
     public static FileBackedTaskManager loadFromFile(File file) {
@@ -42,6 +42,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private void load() throws IOException {
         List<String> lines = Files.readAllLines(this.getPath(), Charset.defaultCharset());
+        Integer maxId = 0;
+
         for (int i = 1; i < lines.size(); i++) {
             var fields = lines.get(i).split(",");
 
@@ -51,21 +53,31 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             String descr = fields[4];
             String type = fields[1];
 
+            if(maxId < id) {
+                maxId = id;
+            }
+
             switch (type) {
                 case "task":
-                    this.creationTask(new Task(id, name, descr, st));
+                    var t = new Task(id, name, descr, st);
+                    tasks.put(t.getId(), t);
                     break;
                 case "subtask":
                     int epicId = Integer.parseInt(fields[5]);
-                    this.creationSubtask(new Subtask(id, epicId, name, descr, st));
+                    Epic epic = epics.get(id);
+                    var s = new Subtask(id, epicId, name, descr, st);
+                    subtasks.put(s.getId(), s);
+                    epic.addSubtaskId(s.getId());
                     break;
                 case "epic":
-                    this.creationEpic(new Epic(id, name, descr, st));
+                    var e = new Epic(id, name, descr, st);
+                    epics.put(e.getId(), e);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + type);
             }
         }
+        super.nextId = maxId;
     }
 
     // метод сохраняет текущее состояние менеджера в указанный файл
