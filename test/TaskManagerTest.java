@@ -3,13 +3,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TaskManagerTest {
+public abstract class TaskManagerTest< T extends TaskManager > {
 
-    public TaskManager tm;
+    public T tm;
 
-    public TaskManagerTest() {
-        this.tm = new InMemoryTaskManager();
-    }
 
     @Test
     //InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id

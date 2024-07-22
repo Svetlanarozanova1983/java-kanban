@@ -3,7 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FileBackedTaskManagerTest extends TaskManagerTest {
+public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
 
     private final File saveTmpFile;
 
