@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InMemoryHistoryManagerTest {
 
+
     @Test
     //задачи, добавляемые в HistoryManager, сохраняют предыдущую версию задачи и её данных
     public void tasksAddedToTheHistoryManagerRetainOfTheTask() {
@@ -14,6 +15,7 @@ public class InMemoryHistoryManagerTest {
         List<Task> taskHistoryList = tm.getHistory();
         assertEquals(task, taskHistoryList.getFirst());
     }
+
 
     @Test
     //задачи, добавляемые в HistoryManager, сохраняют предыдущую версию задачи и её данных
@@ -27,6 +29,7 @@ public class InMemoryHistoryManagerTest {
         List<Task> taskHistoryList = tm.getHistory();
         assertEquals(taskHistoryList.getLast(), taskHistoryList.getFirst());
     }
+
 
     @Test
     //Удаляемые подзадачи не должны хранить внутри себя старые id
