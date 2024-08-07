@@ -81,9 +81,9 @@ public class Epic extends Task {
     @Override
     public String toString() {
         var dur = getDuration();
-        var durStr = dur!= null?  String.valueOf(dur.toMinutes()): "";
+        var durStr = dur!= null ?  String.valueOf(dur.toMinutes()) : "";
         var start = getStartTime();
-        var startStr = start!= null?  String.valueOf(start): "";
+        var startStr = start!= null ?  String.valueOf(start) : "";
         return getId() + ",epic," + getName() + "," + getStatus() + "," + getDescription() + "," + startStr + "," + durStr + ",";
     }
 }

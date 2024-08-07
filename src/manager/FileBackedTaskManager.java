@@ -54,8 +54,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             String name = fields[2];
             String descr = fields[4];
             String type = fields[1];
-            LocalDateTime startTime = !fields[5].isEmpty()?LocalDateTime.parse(fields[5]):null;
-            Duration duration = !fields[6].isEmpty()?Duration.ofMinutes(Long.parseLong(fields[6])):null;
+            LocalDateTime startTime = !fields[5].isEmpty() ? LocalDateTime.parse(fields[5]) : null;
+            Duration duration = !fields[6].isEmpty() ? Duration.ofMinutes(Long.parseLong(fields[6])) : null;
 
             if (maxId < id) {
                 maxId = id;

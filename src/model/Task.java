@@ -93,7 +93,7 @@ public class Task {
             durStr = String.valueOf(duration.toMinutes());
         }
         var start = getStartTime();
-        var startStr = start!= null?  String.valueOf(start): "";
+        var startStr = start!= null ? String.valueOf(start) : "";
         return id + ",task," + name + "," + status + "," + description + "," + startStr + "," + durStr + ",";
     }
 }
