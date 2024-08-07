@@ -1,3 +1,6 @@
+import javax.naming.OperationNotSupportedException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -6,6 +9,8 @@ public class Task {
     private String name;
     private String description;
     private Status status;
+    private Duration duration;
+    private LocalDateTime startTime;
 
     public Task(String name, String description) {
         this.status = Status.NEW;
@@ -19,7 +24,6 @@ public class Task {
         this.description = description;
         this.status = status;
     }
-
 
     public Integer getId() {
         return id;
@@ -53,6 +57,19 @@ public class Task {
         this.status = status;
     }
 
+    public LocalDateTime getStartTime() { return startTime; }
+
+    public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
+
+    public Duration getDuration() { return duration; }
+
+    public void setDuration(Duration duration) { this.duration = duration; }
+
+    //дата и время завершения задачи
+    public LocalDateTime getEndTime() {
+        var endTime = this.startTime.plus(duration);
+        return endTime;
+    }
 
     @Override
     public boolean equals(Object object) {
@@ -71,6 +88,12 @@ public class Task {
     // id,type,name,status,description,epic
     @Override
     public String toString() {
-        return id + ",task," + name + "," + status + "," + description + ",";
+        String durStr = "";
+        if(duration != null){
+            durStr = String.valueOf(duration.toMinutes());
+        }
+        var start = getStartTime();
+        var startStr = start!= null?  String.valueOf(start): "";
+        return id + ",task," + name + "," + status + "," + description + "," + startStr + "," + durStr + ",";
     }
 }
