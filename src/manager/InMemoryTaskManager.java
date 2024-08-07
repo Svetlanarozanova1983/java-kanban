@@ -1,6 +1,5 @@
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class InMemoryTaskManager implements TaskManager {
 
@@ -233,11 +232,11 @@ public class InMemoryTaskManager implements TaskManager {
     public Status getStatusEpic(Integer id) {
         Collection<Subtask> subtaskCollection = getSubtasksByEpicId(id);
         Status result = Status.NEW;
-        var subTaskInProgress =subtaskCollection
+        var subTaskInProgress = subtaskCollection
                 .stream()
                 .filter(f -> f.getStatus() == Status.IN_PROGRESS)
                 .collect(Collectors.toList());
-        if(!subTaskInProgress.isEmpty()){
+        if (!subTaskInProgress.isEmpty()) {
             result = Status.IN_PROGRESS;
         }
         if (result == Status.NEW && allSubtasksByEpicIdIsDone(id)) {
@@ -252,10 +251,7 @@ public class InMemoryTaskManager implements TaskManager {
                 .stream()
                 .filter(subtask -> subtask.getStatus() != Status.DONE)
                 .collect(Collectors.toList());
-        if(!subTaskInProgress.isEmpty()){
-            return false;
-        }
-        return true;
+        return subTaskInProgress.isEmpty();
     }
 
     private void reCalcAndSaveEpicStatus(Integer epicId) {
@@ -269,10 +265,10 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private void addPrioritizedTasks(Task input) {
-        if(input.getStartTime() == null) {
+        if (input.getStartTime() == null) {
             return;
         }
-        if(!checkingOverlapOfTasks(input)) {
+        if (!checkingOverlapOfTasks(input)) {
             throw new UnsupportedOperationException("Задача пересекается по времени исполнения с другими задачами.");
         }
         prioritizedTasks.remove(input);
@@ -284,17 +280,14 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private boolean checkingOverlapOfTasks(Task input) {
-        if(getPrioritizedTasks().isEmpty()) {
+        if (getPrioritizedTasks().isEmpty()) {
             return true;
         }
         var subTaskInProgress = getPrioritizedTasks()
                 .stream()
                 .filter(task -> !(input.getEndTime().isBefore(task.getStartTime()) || input.getStartTime().isAfter(task.getEndTime())))
                 .collect(Collectors.toList());
-        if(!subTaskInProgress.isEmpty()) {
-            return false;
-        }
-        return true;
+        return subTaskInProgress.isEmpty();
     }
 }
 
