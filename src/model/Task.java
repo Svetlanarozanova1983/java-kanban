@@ -1,4 +1,3 @@
-import javax.naming.OperationNotSupportedException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -57,18 +56,25 @@ public class Task {
         this.status = status;
     }
 
-    public LocalDateTime getStartTime() { return startTime; }
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
 
-    public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
 
-    public Duration getDuration() { return duration; }
+    public Duration getDuration() {
+        return duration;
+    }
 
-    public void setDuration(Duration duration) { this.duration = duration; }
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
 
     //дата и время завершения задачи
     public LocalDateTime getEndTime() {
-        var endTime = this.startTime.plus(duration);
-        return endTime;
+        return this.startTime.plus(duration);
     }
 
     @Override
@@ -76,7 +82,7 @@ public class Task {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Task task = (Task) object;
-        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description)
+        return Objects.equals(id, task.id) && Objects.equals(name, task.name) && Objects.equals(description, task.description)
                 && status == task.status;
     }
 
@@ -85,15 +91,14 @@ public class Task {
         return Objects.hash(id, name, description, status);
     }
 
-    // id,type,name,status,description,epic
     @Override
     public String toString() {
         String durStr = "";
-        if(duration != null){
+        if (duration != null) {
             durStr = String.valueOf(duration.toMinutes());
         }
         var start = getStartTime();
-        var startStr = start!= null ? String.valueOf(start) : "";
+        var startStr = start != null ? String.valueOf(start) : "";
         return id + ",task," + name + "," + status + "," + description + "," + startStr + "," + durStr + ",";
     }
 }
